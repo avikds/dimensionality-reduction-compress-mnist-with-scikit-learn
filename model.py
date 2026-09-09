@@ -183,8 +183,54 @@ def unroll_swiss_roll(n_samples=1000, random_state=42):
         "t_correlation": t_correlation
     }
 
-# Step 12 - tsne_map (not yet solved)
-# TODO: implement
+# Step 12 - tsne_map
+from sklearn.manifold import TSNE
+
+def tsne_map(X, y, n=1000, random_state=42):
+    # Use the first n samples.
+    X_subset = X[:n]
+    y_subset = y[:n]
+
+    # Embed the digits into 2-D using t-SNE.
+    tsne = TSNE(
+        n_components=2,
+        init="pca",
+        random_state=random_state
+    )
+    X_2d = tsne.fit_transform(X_subset)
+
+    # Compute class centroids.
+    classes = np.unique(y_subset)
+    centroids = np.array([
+        X_2d[y_subset == cls].mean(axis=0)
+        for cls in classes
+    ])
+
+    # Mean distance between all pairs of distinct class centroids.
+    centroid_distances = []
+    for i in range(len(centroids)):
+        for j in range(i + 1, len(centroids)):
+            centroid_distances.append(
+                np.linalg.norm(centroids[i] - centroids[j])
+            )
+
+    mean_between = float(np.mean(centroid_distances))
+
+    # Mean within-class distance from samples to their class centroid.
+    within_distances = []
+    for i, cls in enumerate(classes):
+        class_points = X_2d[y_subset == cls]
+        distances = np.linalg.norm(class_points - centroids[i], axis=1)
+        within_distances.extend(distances)
+
+    mean_within = float(np.mean(within_distances))
+
+    separation = float(mean_between / mean_within)
+
+    return {
+        "X_2d": X_2d,
+        "separation": separation
+    }
 
 # Step 13 - classifier_on_compressed (not yet solved)
 # TODO: implement
