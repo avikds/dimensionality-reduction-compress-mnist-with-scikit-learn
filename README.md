@@ -20,7 +20,7 @@ python scaffold.py
 - [x] **8.** randomized_pca
 - [x] **9.** incremental_pca
 - [x] **10.** random_projection
-- [ ] **11.** unroll_swiss_roll
+- [x] **11.** unroll_swiss_roll
 - [ ] **12.** tsne_map
 - [ ] **13.** classifier_on_compressed
 - [ ] **14.** pca_classifier_pipeline

@@ -149,8 +149,39 @@ def random_projection(X, n_components, random_state=42, n_pairs=500):
         "max_distortion": float(np.max(np.abs(ratios - 1)))
     }
 
-# Step 11 - unroll_swiss_roll (not yet solved)
-# TODO: implement
+# Step 11 - unroll_swiss_roll
+from sklearn.datasets import make_swiss_roll
+from sklearn.manifold import LocallyLinearEmbedding
+
+def unroll_swiss_roll(n_samples=1000, random_state=42):
+    # Generate the 3-D Swiss roll and its position parameter t.
+    X, t = make_swiss_roll(
+        n_samples=n_samples,
+        noise=0.2,
+        random_state=random_state
+    )
+
+    # Flatten the Swiss roll into a 2-D embedding using LLE.
+    lle = LocallyLinearEmbedding(
+        n_components=2,
+        n_neighbors=10,
+        random_state=random_state
+    )
+    X_2d = lle.fit_transform(X)
+
+    # Compute the absolute Pearson correlation between t and each
+    # embedding coordinate, then keep the larger correlation.
+    correlations = [
+        abs(np.corrcoef(t, X_2d[:, i])[0, 1])
+        for i in range(X_2d.shape[1])
+    ]
+
+    t_correlation = float(max(correlations))
+
+    return {
+        "X_2d": X_2d,
+        "t_correlation": t_correlation
+    }
 
 # Step 12 - tsne_map (not yet solved)
 # TODO: implement
