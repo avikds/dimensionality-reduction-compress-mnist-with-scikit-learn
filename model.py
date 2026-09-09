@@ -75,8 +75,9 @@ def reconstruction_error(pca, X):
     X_rec = pca.inverse_transform(pca.transform(X))
     return float(np.mean((X - X_rec) ** 2))
 
-# Step 7 - compression_ratio (not yet solved)
-# TODO: implement
+# Step 7 - compression_ratio
+def compression_ratio(X, X_reduced):
+    return round(float(X.shape[1] / X_reduced.shape[1]), 2)
 
 # Step 8 - randomized_pca (not yet solved)
 # TODO: implement

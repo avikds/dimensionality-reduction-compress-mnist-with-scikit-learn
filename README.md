@@ -16,7 +16,7 @@ python scaffold.py
 - [x] **4.** explained_variance_curve
 - [x] **5.** compress
 - [x] **6.** reconstruction_error
-- [ ] **7.** compression_ratio
+- [x] **7.** compression_ratio
 - [ ] **8.** randomized_pca
 - [ ] **9.** incremental_pca
 - [ ] **10.** random_projection
