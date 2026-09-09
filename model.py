@@ -79,8 +79,30 @@ def reconstruction_error(pca, X):
 def compression_ratio(X, X_reduced):
     return round(float(X.shape[1] / X_reduced.shape[1]), 2)
 
-# Step 8 - randomized_pca (not yet solved)
-# TODO: implement
+# Step 8 - randomized_pca
+def randomized_pca(X, n_components, random_state=42):
+    # Fit PCA using the randomized SVD solver.
+    pca = PCA(
+        n_components=n_components,
+        svd_solver="randomized",
+        random_state=random_state
+    )
+    pca.fit(X)
+
+    # Compare its explained variance with the exact PCA.
+    exact_pca, _ = compress(X, n_components, random_state)
+
+    variance_gap = float(
+        abs(
+            np.sum(pca.explained_variance_ratio_)
+            - np.sum(exact_pca.explained_variance_ratio_)
+        )
+    )
+
+    return {
+        "pca": pca,
+        "variance_gap": variance_gap
+    }
 
 # Step 9 - incremental_pca (not yet solved)
 # TODO: implement
