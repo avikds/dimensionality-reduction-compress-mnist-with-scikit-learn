@@ -18,7 +18,7 @@ python scaffold.py
 - [x] **6.** reconstruction_error
 - [x] **7.** compression_ratio
 - [x] **8.** randomized_pca
-- [ ] **9.** incremental_pca
+- [x] **9.** incremental_pca
 - [ ] **10.** random_projection
 - [ ] **11.** unroll_swiss_roll
 - [ ] **12.** tsne_map
