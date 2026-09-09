@@ -285,8 +285,12 @@ def pca_classifier_pipeline(variance=0.95, random_state=42):
         LogisticRegression(max_iter=2000)
     )
 
-# Step 15 - save_and_reload_pipeline (not yet solved)
-# TODO: implement
+# Step 15 - save_and_reload_pipeline
+import joblib
+
+def save_and_reload_pipeline(pipeline, path):
+    joblib.dump(pipeline, path)
+    return joblib.load(path)
 
 # Step 16 - predict_images (not yet solved)
 # TODO: implement
