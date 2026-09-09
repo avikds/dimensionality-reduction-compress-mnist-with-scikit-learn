@@ -1,0 +1,88 @@
+"""
+Dimensionality Reduction: Compress MNIST with Scikit-Learn
+
+Assembled from your step-by-step solutions.
+"""
+
+import numpy as np
+
+# Step 1 - load_mnist_subset
+import os
+import tempfile
+import urllib.request
+import numpy as np
+
+def load_mnist_subset(n=3000):
+    # Cache mnist.npz in the system temporary directory.
+    cache_path = os.path.join(tempfile.gettempdir(), "mnist.npz")
+    url = "https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz"
+
+    if not os.path.exists(cache_path):
+        urllib.request.urlretrieve(url, cache_path)
+
+    # Load the first n training images and labels.
+    with np.load(cache_path) as data:
+        X = data["x_train"][:n]
+        y = data["y_train"][:n]
+
+    # Flatten images to (n, 784) and enforce required dtypes.
+    X = X.reshape(n, 784).astype(np.float64)
+    y = y.astype(np.int64)
+
+    return X, y
+
+# Step 2 - fit_pca
+from sklearn.decomposition import PCA
+
+def fit_pca(X, n_components=None, random_state=42):
+    # Fit PCA while retaining all components when n_components is None.
+    pca = PCA(
+        n_components=n_components,
+        random_state=random_state
+    )
+    pca.fit(X)
+
+    return pca
+
+# Step 3 - components_for_variance (not yet solved)
+# TODO: implement
+
+# Step 4 - explained_variance_curve (not yet solved)
+# TODO: implement
+
+# Step 5 - compress (not yet solved)
+# TODO: implement
+
+# Step 6 - reconstruction_error (not yet solved)
+# TODO: implement
+
+# Step 7 - compression_ratio (not yet solved)
+# TODO: implement
+
+# Step 8 - randomized_pca (not yet solved)
+# TODO: implement
+
+# Step 9 - incremental_pca (not yet solved)
+# TODO: implement
+
+# Step 10 - random_projection (not yet solved)
+# TODO: implement
+
+# Step 11 - unroll_swiss_roll (not yet solved)
+# TODO: implement
+
+# Step 12 - tsne_map (not yet solved)
+# TODO: implement
+
+# Step 13 - classifier_on_compressed (not yet solved)
+# TODO: implement
+
+# Step 14 - pca_classifier_pipeline (not yet solved)
+# TODO: implement
+
+# Step 15 - save_and_reload_pipeline (not yet solved)
+# TODO: implement
+
+# Step 16 - predict_images (not yet solved)
+# TODO: implement
+
