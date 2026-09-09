@@ -292,6 +292,10 @@ def save_and_reload_pipeline(pipeline, path):
     joblib.dump(pipeline, path)
     return joblib.load(path)
 
-# Step 16 - predict_images (not yet solved)
-# TODO: implement
+# Step 16 - predict_images
+def predict_images(pipeline, images):
+    X = np.asarray(images).reshape(len(images), 784).astype(np.float64)
+    predictions = pipeline.predict(X)
+
+    return [int(pred) for pred in predictions]
 
