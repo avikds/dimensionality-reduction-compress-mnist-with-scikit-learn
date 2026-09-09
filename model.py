@@ -232,8 +232,46 @@ def tsne_map(X, y, n=1000, random_state=42):
         "separation": separation
     }
 
-# Step 13 - classifier_on_compressed (not yet solved)
-# TODO: implement
+# Step 13 - classifier_on_compressed
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+
+def classifier_on_compressed(
+    X, y, n_components, test_size=0.25, random_state=42
+):
+    # Split the data into training and test sets.
+    X_train, X_test, y_train, y_test = train_test_split(
+        X,
+        y,
+        test_size=test_size,
+        random_state=random_state
+    )
+
+    # Train logistic regression on the raw pixel features.
+    raw_clf = LogisticRegression(max_iter=2000)
+    raw_clf.fit(X_train, y_train)
+    raw_accuracy = float(raw_clf.score(X_test, y_test))
+
+    # Fit PCA only on the training data to avoid data leakage.
+    pca = fit_pca(
+        X_train,
+        n_components=n_components,
+        random_state=random_state
+    )
+
+    X_train_pca = pca.transform(X_train)
+    X_test_pca = pca.transform(X_test)
+
+    # Train the same classifier on the PCA-compressed features.
+    pca_clf = LogisticRegression(max_iter=2000)
+    pca_clf.fit(X_train_pca, y_train)
+    pca_accuracy = float(pca_clf.score(X_test_pca, y_test))
+
+    return {
+        "raw_accuracy": raw_accuracy,
+        "pca_accuracy": pca_accuracy,
+        "n_features": (X.shape[1], X_train_pca.shape[1])
+    }
 
 # Step 14 - pca_classifier_pipeline (not yet solved)
 # TODO: implement
