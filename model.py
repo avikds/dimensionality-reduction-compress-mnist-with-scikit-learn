@@ -70,8 +70,10 @@ def compress(X, n_components, random_state=42):
 
     return pca, X_reduced
 
-# Step 6 - reconstruction_error (not yet solved)
-# TODO: implement
+# Step 6 - reconstruction_error
+def reconstruction_error(pca, X):
+    X_rec = pca.inverse_transform(pca.transform(X))
+    return float(np.mean((X - X_rec) ** 2))
 
 # Step 7 - compression_ratio (not yet solved)
 # TODO: implement
