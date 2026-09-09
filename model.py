@@ -273,8 +273,17 @@ def classifier_on_compressed(
         "n_features": (X.shape[1], X_train_pca.shape[1])
     }
 
-# Step 14 - pca_classifier_pipeline (not yet solved)
-# TODO: implement
+# Step 14 - pca_classifier_pipeline
+from sklearn.pipeline import make_pipeline
+
+def pca_classifier_pipeline(variance=0.95, random_state=42):
+    return make_pipeline(
+        PCA(
+            n_components=variance,
+            random_state=random_state
+        ),
+        LogisticRegression(max_iter=2000)
+    )
 
 # Step 15 - save_and_reload_pipeline (not yet solved)
 # TODO: implement
