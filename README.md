@@ -27,6 +27,21 @@ python scaffold.py
 - [x] **15.** save_and_reload_pipeline
 - [x] **16.** predict_images
 
----
+## Results
 
-Built on Deep-ML.
+```
+MNIST slice (3000, 784); cumulative explained variance: 1:0.099  10:0.500  50:0.832  145:0.951  300:0.989  784:1.000
+95% of the variance needs 145 of 784 components
+   10 components: 78.40x smaller, reconstruction MSE 2,177.0 per pixel
+   50 components: 15.68x smaller, reconstruction MSE 729.7 per pixel
+  145 components:  5.41x smaller, reconstruction MSE 216.7 per pixel
+randomized solver: explained-variance gap vs exact 0.00000
+incremental PCA in 10 batches: reconstruction MSE 219.4
+random projection to 300 dims: mean distance ratio 1.015, max distortion 0.127
+
+LLE unrolls the Swiss roll: |corr(t, embedding)| = 0.997
+t-SNE map of 1000 digits: between/within class separation 2.54
+
+logistic regression: raw 784 pixels -> 0.889; PCA 145 features -> 0.877
+served pipeline (145 components) on 6 raw images: [7, 2, 1, 0, 4, 1] (truth [7, 2, 1, 0, 4, 1])
+```
