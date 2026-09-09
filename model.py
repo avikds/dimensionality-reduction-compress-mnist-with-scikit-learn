@@ -59,8 +59,16 @@ def explained_variance_curve(pca, ks):
         for k in ks
     }
 
-# Step 5 - compress (not yet solved)
-# TODO: implement
+# Step 5 - compress
+def compress(X, n_components, random_state=42):
+    pca = fit_pca(
+        X,
+        n_components=n_components,
+        random_state=random_state
+    )
+    X_reduced = pca.transform(X)
+
+    return pca, X_reduced
 
 # Step 6 - reconstruction_error (not yet solved)
 # TODO: implement
