@@ -44,8 +44,12 @@ def fit_pca(X, n_components=None, random_state=42):
 
     return pca
 
-# Step 3 - components_for_variance (not yet solved)
-# TODO: implement
+# Step 3 - components_for_variance
+def components_for_variance(pca, threshold=0.95):
+    # Find the first component where cumulative explained variance
+    # reaches or exceeds the requested threshold.
+    cumulative_variance = np.cumsum(pca.explained_variance_ratio_)
+    return int(np.argmax(cumulative_variance >= threshold)) + 1
 
 # Step 4 - explained_variance_curve (not yet solved)
 # TODO: implement
